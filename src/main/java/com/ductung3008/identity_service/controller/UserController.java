@@ -1,5 +1,6 @@
 package com.ductung3008.identity_service.controller;
 
+import com.ductung3008.identity_service.dto.request.ApiResponse;
 import com.ductung3008.identity_service.dto.request.UserCreationRequest;
 import com.ductung3008.identity_service.dto.request.UserUpdateRequest;
 import com.ductung3008.identity_service.entity.User;
@@ -17,8 +18,13 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    User createUser(@RequestBody @Valid UserCreationRequest request) {
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+
+        apiResponse.setMessage("User created successfully!");
+        apiResponse.setData(userService.createUser(request));
+
+        return apiResponse;
     }
 
     @GetMapping
